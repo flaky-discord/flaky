@@ -2,6 +2,11 @@ import { ClientEvents, CommandInteraction, Events } from 'discord.js';
 
 import { UserSlashCommandBuilder } from './utils/UserSlashCommandBuilder';
 
+export type BreakingBadQuoteResponse = {
+    quote: string;
+    author: string;
+}
+
 export interface CommandOptions {
     name: string;
     data: UserSlashCommandBuilder;
