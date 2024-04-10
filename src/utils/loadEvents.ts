@@ -13,9 +13,9 @@ export async function loadEvents(client: Client): Promise<void> {
         const event = (await import(join(eventsPath, file))).default;
 
         if (event.once === true) {
-            client.on(event.name, (...args) => event.execute(...args));
-        } else {
             client.once(event.name, (...args) => event.execute(...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(...args));
         }
     }
 }

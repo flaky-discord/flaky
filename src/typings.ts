@@ -5,7 +5,7 @@ import { UserSlashCommandBuilder } from './utils/UserSlashCommandBuilder';
 export type BreakingBadQuoteResponse = {
     quote: string;
     author: string;
-}
+};
 
 export interface CommandOptions {
     name: string;
