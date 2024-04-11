@@ -4,11 +4,14 @@ import {
     Routes,
 } from 'discord.js';
 import 'dotenv/config';
+import { isDevMode } from './util';
 
 export async function registerCommands(
     commands: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 ): Promise<void> {
-    const token = process.env.token as string;
+    const token = isDevMode()
+        ? (process.env.dev_token as string)
+        : (process.env.token as string);
     const clientId = process.env.client_id as string;
 
     const rest = new REST().setToken(token);

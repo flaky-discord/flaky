@@ -4,8 +4,7 @@ import 'dotenv/config';
 import { CommandOptions } from './typings';
 import { loadEvents } from './utils/loadEvents';
 import { loadCommands } from './utils/loadCommands';
-
-const [, , ...args] = process.argv;
+import { isDevMode } from './utils/util';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -26,6 +25,6 @@ client.once('ready', () => {
     console.log('ready');
 });
 
-if (args.includes('--dev') || args.includes('-D'))
-    client.login(process.env.dev_token);
-else client.login(process.env.token);
+const token = isDevMode() ? process.env.dev_token : process.env.token;
+
+client.login(token);
