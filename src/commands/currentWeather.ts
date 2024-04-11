@@ -13,6 +13,7 @@ import { defineUVIndex } from '../utils/defineUVIndex';
 
 export default {
     name: 'current-weather',
+    cooldown: 10,
     data: new UserSlashCommandBuilder()
         .setName('current-weather')
         .setDescription('Get current weather from a location')
