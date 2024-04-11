@@ -10,8 +10,8 @@ import { registerCommands } from './registerCommands';
 
 export async function loadCommands(client: Client): Promise<void> {
     const commandsPath = join(__dirname, '..', 'commands');
-    const commandFiles = readdirSync(commandsPath).filter((file) =>
-        file.endsWith('.ts'),
+    const commandFiles = readdirSync(commandsPath).filter(
+        (file) => file.endsWith('.ts') || file.endsWith('.js'),
     );
 
     const commandsBuilders =

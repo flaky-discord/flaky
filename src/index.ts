@@ -5,6 +5,8 @@ import { CommandOptions } from './typings';
 import { loadEvents } from './utils/loadEvents';
 import { loadCommands } from './utils/loadCommands';
 
+const [, , ...args] = process.argv;
+
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
 });
@@ -24,4 +26,6 @@ client.once('ready', () => {
     console.log('ready');
 });
 
-client.login(process.env.token);
+if (args.includes('--dev') || args.includes('-D'))
+    client.login(process.env.dev_token);
+else client.login(process.env.token);
