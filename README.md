@@ -6,7 +6,7 @@ A User Installable Discord Bot using discord.js
 
 Make sure you have configured the bot, with proper credentials (see [config](#config))
 
-#### Run development version of the bot
+### Run development version of the bot
 
 This is recommended for testing/developing the bot.
 
@@ -16,7 +16,7 @@ yarn dev
 npm run dev
 ```
 
-#### Run the main bot
+### Run the main bot
 
 ```sh
 yarn start
