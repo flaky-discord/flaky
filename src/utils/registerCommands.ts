@@ -5,12 +5,11 @@ import {
 } from 'discord.js';
 import 'dotenv/config';
 
-const clientId = '1227563202083160148';
-
 export async function registerCommands(
     commands: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 ): Promise<void> {
-    const token = process.env.token!;
+    const token = process.env.token as string;
+    const clientId = process.env.client_id as string;
 
     const rest = new REST().setToken(token);
 
