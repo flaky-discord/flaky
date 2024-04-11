@@ -2,6 +2,11 @@
 
 A User Installable Discord Bot using discord.js
 
+[**Use the bot here**](https://discord.com/oauth2/authorize?client_id=1227563202083160148)
+
+> [!IMPORTANT]
+> Click on `Try It Now!` and not `Add to Server`
+
 ## Running
 
 > [!IMPORTANT]
