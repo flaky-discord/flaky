@@ -1,4 +1,9 @@
-import { DiscordAPIError, Events, RESTJSONErrorCodes } from 'discord.js';
+import {
+    Collection,
+    DiscordAPIError,
+    Events,
+    RESTJSONErrorCodes,
+} from 'discord.js';
 
 import { EventOptions } from '../typings';
 
@@ -6,10 +11,41 @@ export default {
     name: Events.InteractionCreate,
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;
+
         const command = interaction.client.commands.get(
             interaction.commandName,
         );
         if (!command) return;
+
+        const { cooldowns } = interaction.client;
+
+        if (!cooldowns.has(command.data.name)) {
+            cooldowns.set(command.data.name, new Collection());
+        }
+
+        const now = Date.now();
+        const timestamps = cooldowns.get(command.data.name) as Collection<
+            string,
+            number
+        >;
+        const defaultCooldownDuration = 3;
+        const cooldownAmount =
+            (command.cooldown ?? defaultCooldownDuration) * 1_000;
+
+        if (timestamps.has(interaction.user.id)) {
+            const expirationTime =
+                timestamps.get(interaction.user.id)! + cooldownAmount;
+
+            if (now < expirationTime) {
+                const expiredTimestamp = Math.round(expirationTime / 1_000);
+
+                await interaction.reply({
+                    content: `You are on cooldown!\nYou may use it again <t:${expiredTimestamp}:R>`,
+                    ephemeral: true,
+                });
+                return;
+            }
+        }
 
         try {
             await command.execute(interaction);

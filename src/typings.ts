@@ -66,6 +66,7 @@ export interface ObjectString {
 
 export interface CommandOptions {
     name: string;
+    cooldown?: number;
     data: UserSlashCommandBuilder;
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
 }
