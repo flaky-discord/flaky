@@ -9,10 +9,14 @@ import { isDevMode } from './util';
 export async function registerCommands(
     commands: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 ): Promise<void> {
-    const token = isDevMode()
+    const devMode = isDevMode();
+    const token = devMode
         ? (process.env.dev_token as string)
         : (process.env.token as string);
-    const clientId = process.env.client_id as string;
+
+    const clientId = devMode
+        ? (process.env.dev_client_id as string)
+        : (process.env.client_id as string);
 
     const rest = new REST().setToken(token);
 

@@ -39,3 +39,4 @@ Flaky uses `dotenv` for credentials.
 -   `dev_token` - Development version of the bot
 -   `weather_api_key` - a [WeatherAPI](https://weatherapi.com) key
 -   `client_id` - the Bot's ID
+-   `dev_client_id`- Development Bot ID
