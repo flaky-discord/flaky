@@ -60,6 +60,47 @@ export type WeatherAPICurrentWeather = {
 
 export type UVIndex = 'Low' | 'Medium' | 'High' | 'Very High' | 'Extreme';
 
+export type DictionaryAPIError = {
+    title: string;
+    message: string;
+    resolution: string;
+};
+
+export type DictionaryAPIPhonetic = {
+    text: string;
+    audio?: string;
+};
+
+export type DictionaryAPIPartsOfSpeech =
+    | 'verb'
+    | 'noun'
+    | 'adjective'
+    | 'adverb'
+    | 'pronoun'
+    | 'interjection'
+    | 'conjunction'
+    | 'preposition';
+
+export type DictionaryAPIDefinition = {
+    definition: string;
+    example: string;
+    synonyms: Array<string>;
+    antonyms: Array<string>;
+};
+
+export type DictionaryAPIMeaning = {
+    partOfSpeech: DictionaryAPIPartsOfSpeech;
+    definitions: Array<DictionaryAPIDefinition>;
+};
+
+export type DictionaryAPIResponse = {
+    word: string;
+    phonetic?: string;
+    phonetics: Array<DictionaryAPIPhonetic>;
+    origin?: string;
+    meanings: Array<DictionaryAPIMeaning>;
+};
+
 export interface ObjectString {
     [propName: string]: string;
 }
