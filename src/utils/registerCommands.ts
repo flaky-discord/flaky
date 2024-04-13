@@ -4,19 +4,14 @@ import {
     Routes,
 } from 'discord.js';
 import 'dotenv/config';
-import { isDevMode } from './util';
+import { getFromConfig } from './util';
+import { BotConfigOptions } from '../typings';
 
 export async function registerCommands(
     commands: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 ): Promise<void> {
-    const devMode = isDevMode();
-    const token = devMode
-        ? (process.env.dev_token as string)
-        : (process.env.token as string);
-
-    const clientId = devMode
-        ? (process.env.dev_client_id as string)
-        : (process.env.client_id as string);
+    const token = getFromConfig(BotConfigOptions.Token);
+    const clientId = getFromConfig(BotConfigOptions.ClientId);
 
     const rest = new REST().setToken(token);
 

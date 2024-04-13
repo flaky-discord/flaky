@@ -1,15 +1,16 @@
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import 'dotenv/config';
 
-import { CommandOptions } from './typings';
+import { BotConfigOptions, CommandOptions } from './typings';
 import { loadEvents } from './utils/loadEvents';
 import { loadCommands } from './utils/loadCommands';
-import { isDevMode } from './utils/util';
+import { getFromConfig } from './utils/util';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
 });
 
+// TODO: Move this to `typings.ts`
 declare module 'discord.js' {
     export interface Client {
         commands: Collection<string, CommandOptions>;
@@ -27,6 +28,6 @@ client.once('ready', () => {
     console.log('ready');
 });
 
-const token = isDevMode() ? process.env.dev_token : process.env.token;
+const token = getFromConfig(BotConfigOptions.Token);
 
 client.login(token);
