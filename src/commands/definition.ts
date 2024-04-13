@@ -78,16 +78,16 @@ function resolveMeanings(
 ): Array<APIEmbedField> {
     const partsOfSpeech = [] as Array<APIEmbedField>;
 
-    for (const meaning of meanings) {
-        const partOfSpeech = `_**[${meaning.partOfSpeech}]**_`;
-        const { definition, example: rawExample } = meaning.definitions[0];
-        const example = rawExample ? `\n\nExample: ${rawExample}` : '';
+    const meaning = meanings[0] as DictionaryAPIMeaning;
 
-        partsOfSpeech.push({
-            name: partOfSpeech,
-            value: `- ${definition}${example}\n`,
-        });
-    }
+    const partOfSpeech = `_**[${meaning.partOfSpeech}]**_`;
+    const { definition, example: rawExample } = meaning.definitions[0];
+    const example = rawExample ? `\n\nExample: ${rawExample}` : '';
+
+    partsOfSpeech.push({
+        name: partOfSpeech,
+        value: `- ${definition}${example}\n`,
+    });
 
     return partsOfSpeech;
 }
