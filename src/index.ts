@@ -10,14 +10,6 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds],
 });
 
-// TODO: Move this to `typings.ts`
-declare module 'discord.js' {
-    export interface Client {
-        commands: Collection<string, CommandOptions>;
-        cooldowns: Collection<string, Collection<string, number>>;
-    }
-}
-
 client.commands = new Collection<string, CommandOptions>();
 client.cooldowns = new Collection<string, Collection<string, number>>();
 

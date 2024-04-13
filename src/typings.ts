@@ -1,4 +1,9 @@
-import { ChatInputCommandInteraction, ClientEvents, Events } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    ClientEvents,
+    Collection,
+    Events,
+} from 'discord.js';
 
 import { UserSlashCommandBuilder } from './utils/UserSlashCommandBuilder';
 
@@ -144,5 +149,12 @@ declare global {
             [BotEnvConfig.DevClientId]: string;
             [BotEnvConfig.WeatherAPIKey]: string;
         }
+    }
+}
+
+declare module 'discord.js' {
+    export interface Client {
+        commands: Collection<string, CommandOptions>;
+        cooldowns: Collection<string, Collection<string, number>>;
     }
 }
