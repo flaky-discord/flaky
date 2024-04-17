@@ -5,6 +5,7 @@ import {
     BotConfigOptions,
     BotEnvConfig,
     DictionaryAPIResponse,
+    UVIndex,
 } from '../typings';
 
 const [, , ...args] = process.argv;
@@ -53,4 +54,13 @@ export function getFromConfig(config: BotConfigOptions): string {
         default:
             throw new Error(`Invalid config: ${config}`);
     }
+}
+
+// @ts-ignore
+export function defineUVIndex(uvIndex: number): UVIndex {
+    if (uvIndex <= 2) return 'Low';
+    if (uvIndex <= 5) return 'Medium';
+    if (uvIndex <= 7) return 'High';
+    if (uvIndex <= 10) return 'Very High';
+    if (uvIndex > 10) return 'Extreme';
 }
