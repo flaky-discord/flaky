@@ -73,8 +73,10 @@ export default {
                 : ('' as string);
         const title = `${flag} ${location.name}`;
 
-        const temp = `**${weather.temp_c}**_°C_ / **${weather.temp_f}**_°F_`;
-        const feelsLike = `(Feels like: **${weather.feelslike_c}**_°C_ / **${weather.feelslike_f}**_°F_)`;
+        const temp = roundTemp(weather);
+
+        const tempFormatted = `**${temp.c}**_°C_ / **${temp.f}**_°F_`;
+        const feelsLike = `(Feels like: **${temp.feelsLikeC}**_°C_ / **${temp.feelsLikeF}**_°F_)`;
         const uvIndex = defineUVIndex(weather.uv);
 
         const embed = new EmbedBuilder()
@@ -87,7 +89,7 @@ export default {
             .addFields([
                 {
                     name: '🌡️ Temperature',
-                    value: `${temp}\n${feelsLike}`,
+                    value: `${tempFormatted}\n${feelsLike}`,
                     inline: true,
                 },
                 {
@@ -107,3 +109,12 @@ export default {
         });
     },
 } as CommandOptions;
+
+function roundTemp(weather: WeatherAPICurrentWeather['current']) {
+    const c = Math.round(weather.temp_c);
+    const f = Math.round(weather.temp_f);
+    const feelsLikeC = Math.round(weather.feelslike_c);
+    const feelsLikeF = Math.round(weather.feelslike_f);
+
+    return { c, f, feelsLikeC, feelsLikeF };
+}
