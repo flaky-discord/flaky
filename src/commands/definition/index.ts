@@ -1,12 +1,9 @@
-import { APIEmbedField, EmbedBuilder } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
-import {
-    CommandOptions,
-    DictionaryAPIMeaning,
-    DictionaryAPIResponse,
-} from '../typings';
-import { UserSlashCommandBuilder } from '../utils/UserSlashCommandBuilder';
-import { getWordFromDictionaryAPI } from '../utils/util';
+import { CommandOptions, DictionaryAPIResponse } from '../../typings';
+import { UserSlashCommandBuilder } from '../../utils/UserSlashCommandBuilder';
+import { getWordFromDictionaryAPI } from '../../utils/util';
+import { resolveMeanings } from './resolveMeanings';
 
 export default {
     name: 'definition',
@@ -56,22 +53,3 @@ export default {
         }
     },
 } as CommandOptions;
-
-function resolveMeanings(
-    meanings: Array<DictionaryAPIMeaning>,
-): Array<APIEmbedField> {
-    const partsOfSpeech = [] as Array<APIEmbedField>;
-
-    const meaning = meanings[0] as DictionaryAPIMeaning;
-
-    const partOfSpeech = `_**[${meaning.partOfSpeech}]**_`;
-    const { definition, example: rawExample } = meaning.definitions[0];
-    const example = rawExample ? `\n\nExample: ${rawExample}` : '';
-
-    partsOfSpeech.push({
-        name: partOfSpeech,
-        value: `- ${definition}${example}\n`,
-    });
-
-    return partsOfSpeech;
-}

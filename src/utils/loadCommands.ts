@@ -8,19 +8,42 @@ import {
 
 import { registerCommands } from './registerCommands';
 
+const commandsPath = join(__dirname, '..', 'commands');
+
+const fileFilter = (file: string): boolean =>
+    file.endsWith('.js') || file.endsWith('.ts');
+
+const commandsBuilders =
+    [] as RESTPostAPIChatInputApplicationCommandsJSONBody[];
+
+async function loadCommand(
+    client: Client,
+    path: string,
+    file: string,
+): Promise<void> {
+    const command = (await import(join(path, file))).default;
+
+    commandsBuilders.push(command.data.toJSON());
+    client.commands.set(command.name, command);
+}
+
 export async function loadCommands(client: Client): Promise<void> {
-    const commandsPath = join(__dirname, '..', 'commands');
-    const commandFiles = readdirSync(commandsPath).filter(
-        (file) => file.endsWith('.ts') || file.endsWith('.js'),
+    const commandFiles = readdirSync(commandsPath).filter(fileFilter);
+    const commandFolders = readdirSync(commandsPath).filter(
+        (file) => !fileFilter(file),
     );
 
-    const commandsBuilders =
-        [] as RESTPostAPIChatInputApplicationCommandsJSONBody[];
-    for await (const file of commandFiles) {
-        const command = (await import(join(commandsPath, file))).default;
+    for (const file of commandFiles)
+        await loadCommand(client, commandsPath, file);
 
-        commandsBuilders.push(command.data.toJSON());
-        client.commands.set(command.name, command);
+    for (const folders of commandFolders) {
+        const folderCommandsPath = join(commandsPath, folders);
+        const folderCommandFiles = readdirSync(folderCommandsPath).filter(
+            (file) => file.startsWith('index'),
+        );
+
+        for (const file of folderCommandFiles)
+            await loadCommand(client, folderCommandsPath, file);
     }
 
     await registerCommands(commandsBuilders);

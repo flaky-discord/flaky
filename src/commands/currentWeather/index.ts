@@ -6,10 +6,11 @@ import {
     CommandOptions,
     WeatherAPICurrentWeather,
     WeatherAPIError,
-} from '../typings';
-import { UserSlashCommandBuilder } from '../utils/UserSlashCommandBuilder';
-import { countryList } from '../utils/flagsCode';
-import { defineUVIndex } from '../utils/defineUVIndex';
+} from '../../typings';
+import { UserSlashCommandBuilder } from '../../utils/UserSlashCommandBuilder';
+import { countryList } from '../../utils/flagsCode';
+import { defineUVIndex } from '../../utils/defineUVIndex';
+import { roundTemp } from './roundTemp';
 
 export default {
     name: 'current-weather',
@@ -109,12 +110,3 @@ export default {
         });
     },
 } as CommandOptions;
-
-function roundTemp(weather: WeatherAPICurrentWeather['current']) {
-    const c = Math.round(weather.temp_c);
-    const f = Math.round(weather.temp_f);
-    const feelsLikeC = Math.round(weather.feelslike_c);
-    const feelsLikeF = Math.round(weather.feelslike_f);
-
-    return { c, f, feelsLikeC, feelsLikeF };
-}
