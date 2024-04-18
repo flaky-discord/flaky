@@ -1,5 +1,8 @@
 # Flaky
 
+-   [Running](#runnung)
+-   [Config](#config)
+
 A User Installable Discord Bot using discord.js
 
 [**Use the bot here**](https://discord.com/oauth2/authorize?client_id=1227563202083160148)
@@ -12,7 +15,7 @@ A User Installable Discord Bot using discord.js
 > [!IMPORTANT]
 > Make sure you have configured the bot, with proper credentials (see [config](#config))
 
-### Run development version of the bot
+#### Run as development version of the bot
 
 > [!NOTE]
 > This is recommended for testing/developing the bot.
@@ -23,7 +26,7 @@ yarn dev
 npm run dev
 ```
 
-### Run the main bot
+#### Run as the main bot
 
 ```sh
 yarn start
