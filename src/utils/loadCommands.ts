@@ -7,6 +7,7 @@ import {
 } from 'discord.js';
 
 import { registerCommands } from './registerCommands';
+import { logger } from './util';
 
 const commandsPath = join(__dirname, '..', 'commands');
 
@@ -22,6 +23,7 @@ async function loadCommand(
     file: string,
 ): Promise<void> {
     const command = (await import(join(path, file))).default;
+    logger.info(`Loaded command, ${command.name}`);
 
     commandsBuilders.push(command.data.toJSON());
     client.commands.set(command.name, command);

@@ -4,7 +4,7 @@ import 'dotenv/config';
 import { BotConfigOptions, CommandOptions } from './typings';
 import { loadEvents } from './utils/loadEvents';
 import { loadCommands } from './utils/loadCommands';
-import { getFromConfig } from './utils/util';
+import { getFromConfig, logger } from './utils/util';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -17,7 +17,7 @@ loadEvents(client);
 loadCommands(client);
 
 client.once('ready', () => {
-    console.log('ready');
+    logger.info('Bot is ready');
 });
 
 const token = getFromConfig(BotConfigOptions.Token);

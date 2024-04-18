@@ -6,6 +6,7 @@ import {
 } from 'discord.js';
 
 import { EventOptions } from '../typings';
+import { logger } from '../utils/util';
 
 export default {
     name: Events.InteractionCreate,
@@ -67,7 +68,7 @@ export default {
                 });
             }
 
-            console.error(err);
+            logger.error(err);
         }
     },
 } as EventOptions<Events.InteractionCreate>;

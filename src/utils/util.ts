@@ -1,3 +1,4 @@
+import pino from 'pino';
 import { request } from 'undici';
 import 'dotenv/config';
 
@@ -9,6 +10,16 @@ import {
 } from '../typings';
 
 const [, , ...args] = process.argv;
+
+export const logger = pino({
+    transport: {
+        target: 'pino-pretty',
+        options: {
+            colorize: true,
+        },
+    },
+    level: 'info',
+});
 
 export const isDevMode = (): boolean =>
     args.includes('-D') || args.includes('--dev');

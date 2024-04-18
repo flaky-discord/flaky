@@ -4,7 +4,7 @@ import {
     Routes,
 } from 'discord.js';
 import 'dotenv/config';
-import { getFromConfig } from './util';
+import { getFromConfig, logger } from './util';
 import { BotConfigOptions } from '../typings';
 
 export async function registerCommands(
@@ -16,14 +16,14 @@ export async function registerCommands(
     const rest = new REST().setToken(token);
 
     try {
-        console.log('Registering USER slash commands.');
+        logger.info('Registering USER slash commands.');
 
         await rest.put(Routes.applicationCommands(clientId), {
             body: commands,
         });
 
-        console.log('Successfully registered USER slash commands.');
+        logger.info('Successfully registered USER slash commands.');
     } catch (err) {
-        console.log(err);
+        logger.error(err);
     }
 }
