@@ -47,7 +47,7 @@ export function getFromConfig(config: BotConfigOptions): string {
 }
 
 const isClientRequestError = (code: number): boolean =>
-    code !== 200 && code >= 400 && code < 500;
+    code >= 400 && code < 500;
 
 export async function getRequest<T = object, E = object | null | undefined>(
     url: string,
