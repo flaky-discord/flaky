@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 
-export class UserSlashCommandBuilder extends SlashCommandBuilder {
+export default class UserSlashCommandBuilder extends SlashCommandBuilder {
     public integration_types: Array<number>;
 
     public constructor() {

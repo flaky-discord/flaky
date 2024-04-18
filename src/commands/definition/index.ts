@@ -1,8 +1,7 @@
 import { EmbedBuilder } from 'discord.js';
 
 import { CommandOptions, DictionaryAPIResponse } from '../../typings';
-import { UserSlashCommandBuilder } from '../../utils/UserSlashCommandBuilder';
-import { getWordFromDictionaryAPI } from '../../utils/util';
+import { UserSlashCommandBuilder, getWordFromDictionaryAPI } from '../../utils';
 import { resolveMeanings } from './resolveMeanings';
 
 export default {

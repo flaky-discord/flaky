@@ -1,7 +1,7 @@
 import { request } from 'undici';
 
 import { BreakingBadQuoteResponse, CommandOptions } from '../typings';
-import { UserSlashCommandBuilder } from '../utils/UserSlashCommandBuilder';
+import { UserSlashCommandBuilder } from '../utils';
 
 export default {
     name: 'breaking-bad',

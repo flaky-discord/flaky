@@ -2,9 +2,7 @@ import { Client, Collection, GatewayIntentBits } from 'discord.js';
 import 'dotenv/config';
 
 import { BotConfigOptions, CommandOptions } from './typings';
-import { loadEvents } from './utils/loadEvents';
-import { loadCommands } from './utils/loadCommands';
-import { getFromConfig, logger } from './utils/util';
+import { getFromConfig, loadCommands, loadEvents, logger } from './utils';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],

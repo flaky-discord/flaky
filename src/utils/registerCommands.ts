@@ -7,7 +7,7 @@ import 'dotenv/config';
 import { getFromConfig, logger } from './util';
 import { BotConfigOptions } from '../typings';
 
-export async function registerCommands(
+export default async function registerCommands(
     commands: RESTPostAPIChatInputApplicationCommandsJSONBody[],
 ): Promise<void> {
     const token = getFromConfig(BotConfigOptions.Token);

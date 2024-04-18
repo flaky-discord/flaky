@@ -7,9 +7,11 @@ import {
     WeatherAPICurrentWeather,
     WeatherAPIError,
 } from '../../typings';
-import { UserSlashCommandBuilder } from '../../utils/UserSlashCommandBuilder';
-import { countryList } from '../../utils/flagsCode';
-import { defineUVIndex } from '../../utils/util';
+import {
+    UserSlashCommandBuilder,
+    countryList,
+    defineUVIndex,
+} from '../../utils';
 import { roundTemp } from './roundTemp';
 
 export default {

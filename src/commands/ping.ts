@@ -1,5 +1,5 @@
 import { CommandOptions } from '../typings';
-import { UserSlashCommandBuilder } from '../utils/UserSlashCommandBuilder';
+import { UserSlashCommandBuilder } from '../utils';
 
 export default {
     name: 'ping',

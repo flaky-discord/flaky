@@ -5,7 +5,7 @@ import {
     Events,
 } from 'discord.js';
 
-import { UserSlashCommandBuilder } from './utils/UserSlashCommandBuilder';
+import { UserSlashCommandBuilder } from './utils';
 
 export type BreakingBadQuoteResponse = {
     quote: string;

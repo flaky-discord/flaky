@@ -5,9 +5,7 @@ import {
     Client,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
-
-import { registerCommands } from './registerCommands';
-import { logger } from './util';
+import { logger, registerCommands } from './index';
 
 const commandsPath = join(__dirname, '..', 'commands');
 
@@ -29,7 +27,7 @@ async function loadCommand(
     client.commands.set(command.name, command);
 }
 
-export async function loadCommands(client: Client): Promise<void> {
+export default async function loadCommands(client: Client): Promise<void> {
     const commandFiles = readdirSync(commandsPath).filter(fileFilter);
     const commandFolders = readdirSync(commandsPath).filter(
         (file) => !fileFilter(file),

@@ -1,6 +1,6 @@
 import { ObjectString } from '../typings';
 
-export const countryList = {
+export default {
     Afghanistan: 'AF',
     'Aland Islands': 'AX',
     Albania: 'AL',
