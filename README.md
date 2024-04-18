@@ -2,6 +2,7 @@
 
 -   [Running](#running)
 -   [Config](#config)
+-   [Open source](#open-source)
 
 A User Installable Discord Bot using discord.js
 
@@ -43,3 +44,10 @@ Flaky uses `dotenv` for credentials.
 -   `weather_api_key` - a [WeatherAPI](https://weatherapi.com) key
 -   `client_id` - the Bot's ID
 -   `dev_client_id`- Development Bot ID
+
+## Open source
+
+This bot is open source.
+And is licensed under the [`GNU Affero General Public License v3`](./LICENSE)
+
+You may use it as long as it's compliant with the [License](./LICENSE)
