@@ -1,6 +1,6 @@
 # Flaky
 
--   [Running](#runnung)
+-   [Running](#running)
 -   [Config](#config)
 
 A User Installable Discord Bot using discord.js
