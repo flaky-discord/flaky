@@ -1,7 +1,11 @@
 import { EmbedBuilder } from 'discord.js';
 
-import { CommandOptions, DictionaryAPIResponse } from '../../typings';
-import { UserSlashCommandBuilder, getWordFromDictionaryAPI } from '../../utils';
+import {
+    CommandOptions,
+    DictionaryAPIResponse,
+    DictionaryAPIResults,
+} from '../../typings';
+import { UserSlashCommandBuilder, getRequest } from '../../utils';
 import { resolveMeanings } from './resolveMeanings';
 
 export default {
@@ -20,29 +24,16 @@ export default {
     async execute(interaction) {
         const word = interaction.options.getString('word') as string;
 
-        try {
-            const definitions = (await getWordFromDictionaryAPI(
-                word,
-            )) as Array<DictionaryAPIResponse>;
-            const data = definitions[0] as DictionaryAPIResponse;
+        const wordParams = encodeURIComponent(word);
+        const base = `https://api.dictionaryapi.dev/api/v2`;
+        const wordSearchRoute = `${base}/entries/en/${wordParams}`;
 
-            const phonetic = data.phonetics.find((el) => el.text)?.text ?? '';
-            const origin = data.origin ? `Origin: ${data.origin}` : '';
+        const response =
+            await getRequest<DictionaryAPIResponse>(wordSearchRoute);
 
-            const fields = resolveMeanings(data.meanings);
-
-            const embed = new EmbedBuilder()
-                .setTitle(word)
-                .setDescription(`${phonetic}\n${origin}`)
-                .setFields(fields)
-                .setTimestamp();
-
-            await interaction.reply({
-                embeds: [embed],
-            });
-        } catch (err) {
+        if (!response.ok) {
             // @ts-ignore
-            if (err?.title === 'No Definitions Found') {
+            if (response?.error?.title === 'No Definitions Found') {
                 await interaction.reply({
                     content: `No definition found for \`${word}\`!`,
                     ephemeral: true,
@@ -50,5 +41,23 @@ export default {
             }
             return;
         }
+
+        const definitions = response.results as DictionaryAPIResponse;
+        const data = definitions[0] as DictionaryAPIResults;
+
+        const phonetic = data.phonetics.find((el) => el.text)?.text ?? '';
+        const origin = data.origin ? `Origin: ${data.origin}` : '';
+
+        const fields = resolveMeanings(data.meanings);
+
+        const embed = new EmbedBuilder()
+            .setTitle(word)
+            .setDescription(`${phonetic}\n${origin}`)
+            .setFields(fields)
+            .setTimestamp();
+
+        await interaction.reply({
+            embeds: [embed],
+        });
     },
 } as CommandOptions;

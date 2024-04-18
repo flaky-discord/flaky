@@ -1,5 +1,4 @@
 import { Colors, EmbedBuilder } from 'discord.js';
-import { request } from 'undici';
 import 'dotenv/config';
 
 import {
@@ -11,6 +10,7 @@ import {
     UserSlashCommandBuilder,
     countryList,
     defineUVIndex,
+    getRequest,
 } from '../../utils';
 import { roundTemp } from './roundTemp';
 
@@ -40,16 +40,18 @@ export default {
         params.append('q', locationQuery);
 
         const url = `${currentWeatherRoute}?${params.toString()}`;
-        const { body, statusCode } = await request(url, {
-            method: 'GET',
-        });
+        const response = await getRequest<
+            WeatherAPICurrentWeather,
+            WeatherAPIError
+        >(url);
 
-        if (statusCode !== 200) {
-            const errorData = (await body.json()) as WeatherAPIError;
-            const errorCode = errorData.error.code;
+        if (!response.ok) {
+            const {
+                error: { code },
+            } = response.error as WeatherAPIError;
 
             // 1006 = No location found matching parameter 'q'
-            if (errorCode !== 1006) {
+            if (code !== 1006) {
                 await interaction.reply({
                     content:
                         'An error occured while trying to fetch weather data!',
@@ -65,7 +67,7 @@ export default {
             return;
         }
 
-        const data = (await body.json()) as WeatherAPICurrentWeather;
+        const data = response.results as WeatherAPICurrentWeather;
         const location = data.location;
         const country = location.country as string;
         const weather = data.current;

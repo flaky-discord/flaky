@@ -7,7 +7,7 @@ import {
     defineUVIndex,
     isDevMode,
     getFromConfig,
-    getWordFromDictionaryAPI,
+    getRequest,
     logger,
 } from './util';
 
@@ -15,7 +15,7 @@ export {
     defineUVIndex,
     isDevMode,
     getFromConfig,
-    getWordFromDictionaryAPI,
+    getRequest,
     logger,
     UserSlashCommandBuilder,
     countryList,

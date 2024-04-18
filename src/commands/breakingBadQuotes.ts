@@ -1,7 +1,5 @@
-import { request } from 'undici';
-
 import { BreakingBadQuoteResponse, CommandOptions } from '../typings';
-import { UserSlashCommandBuilder } from '../utils';
+import { UserSlashCommandBuilder, getRequest } from '../utils';
 
 export default {
     name: 'breaking-bad',
@@ -12,11 +10,12 @@ export default {
         const api = 'https://api.breakingbadquotes.xyz';
         const quotes = `${api}/v1/quotes`;
 
-        const { statusCode, body } = await request(quotes, {
-            method: 'GET',
-        });
+        // TODO: Make a *proper* type for `BreakingBadQuoteResponse`
+        //       as the type does not represent the actual response from the API
+        const response =
+            await getRequest<Array<BreakingBadQuoteResponse>>(quotes);
 
-        if (statusCode !== 200) {
+        if (!response.ok) {
             await interaction.reply({
                 content: 'Unable to fetch breaking bad quotes!',
                 ephemeral: true,
@@ -24,12 +23,12 @@ export default {
             return;
         }
 
-        // @ts-ignore
-        const data = (await body.json())[0] as BreakingBadQuoteResponse;
+        const { quote, author } = response
+            .results![0] as BreakingBadQuoteResponse;
 
-        const quote = `_${data.quote}_\n\n**\\- ${data.author}**`;
+        const quoteFormatted = `_${quote}_\n\n**\\- ${author}**`;
         await interaction.reply({
-            content: quote,
+            content: quoteFormatted,
         });
     },
 } as CommandOptions;

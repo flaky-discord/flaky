@@ -98,12 +98,20 @@ export type DictionaryAPIMeaning = {
     definitions: Array<DictionaryAPIDefinition>;
 };
 
-export type DictionaryAPIResponse = {
+export type DictionaryAPIResults = {
     word: string;
     phonetic?: string;
     phonetics: Array<DictionaryAPIPhonetic>;
     origin?: string;
     meanings: Array<DictionaryAPIMeaning>;
+};
+
+export type DictionaryAPIResponse = Array<DictionaryAPIResults>;
+
+export type GetRequestResponse<T = unknown, E = object | undefined | null> = {
+    ok: boolean;
+    error?: E;
+    results?: T;
 };
 
 export enum BotConfigOptions {

@@ -5,7 +5,7 @@ import 'dotenv/config';
 import {
     BotConfigOptions,
     BotEnvConfig,
-    DictionaryAPIResponse,
+    GetRequestResponse,
     UVIndex,
 } from '../typings';
 
@@ -23,27 +23,6 @@ export const logger = pino({
 
 export const isDevMode = (): boolean =>
     args.includes('-D') || args.includes('--dev');
-
-export async function getWordFromDictionaryAPI(
-    word: string,
-): Promise<Array<DictionaryAPIResponse>> {
-    const wordParams = encodeURIComponent(word);
-    const base = `https://api.dictionaryapi.dev/api/v2`;
-    const wordSearchRoute = `${base}/entries/en/${wordParams}`;
-
-    const { body, statusCode } = await request(wordSearchRoute, {
-        method: 'GET',
-    });
-
-    if (statusCode !== 200) {
-        const error = await body.json();
-        return new Promise((_, reject) => reject(error));
-    }
-
-    const results = (await body.json()) as Array<DictionaryAPIResponse>;
-
-    return new Promise((resolve, _) => resolve(results));
-}
 
 export function getFromConfig(config: BotConfigOptions): string {
     const inDevMode = isDevMode();
@@ -65,6 +44,37 @@ export function getFromConfig(config: BotConfigOptions): string {
         default:
             throw new Error(`Invalid config: ${config}`);
     }
+}
+
+const isClientRequestError = (code: number): boolean =>
+    code !== 200 && code >= 400 && code < 500;
+
+export async function getRequest<T = object, E = object | null | undefined>(
+    url: string,
+    body?: object,
+): Promise<GetRequestResponse<T, E>> {
+    const { body: responseBody, statusCode } = await request(url, {
+        method: 'GET',
+        body: body ? JSON.stringify(body) : null,
+    });
+
+    if (isClientRequestError(statusCode)) {
+        const errorBody = (
+            responseBody ? await responseBody.json() : null
+        ) as E;
+
+        return {
+            ok: false,
+            error: errorBody,
+        };
+    }
+
+    const data = (await responseBody.json()) as T;
+
+    return {
+        ok: true,
+        results: data,
+    };
 }
 
 // @ts-ignore
