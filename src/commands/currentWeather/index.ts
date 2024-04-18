@@ -9,7 +9,7 @@ import {
 } from '../../typings';
 import { UserSlashCommandBuilder } from '../../utils/UserSlashCommandBuilder';
 import { countryList } from '../../utils/flagsCode';
-import { defineUVIndex } from '../../utils/defineUVIndex';
+import { defineUVIndex } from '../../utils/util';
 import { roundTemp } from './roundTemp';
 
 export default {
