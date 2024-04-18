@@ -2,6 +2,7 @@ import { Colors, EmbedBuilder } from 'discord.js';
 import 'dotenv/config';
 
 import {
+    BotConfigOptions,
     CommandOptions,
     WeatherAPICurrentWeather,
     WeatherAPIError,
@@ -10,6 +11,7 @@ import {
     UserSlashCommandBuilder,
     countryList,
     defineUVIndex,
+    getFromConfig,
     getRequest,
 } from '../../utils';
 import { roundTemp } from './roundTemp';
@@ -29,7 +31,7 @@ export default {
     async execute(interaction) {
         const base = 'https://api.weatherapi.com/v1';
         const currentWeatherRoute = `${base}/current.json`;
-        const key = process.env.weather_api_key as string;
+        const key = getFromConfig(BotConfigOptions.WeatherAPIKey) as string;
 
         const locationQuery = interaction.options.getString(
             'location',
