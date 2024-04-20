@@ -58,9 +58,11 @@ export async function getRequest<T = object, E = object | null | undefined>(
         body: body ? JSON.stringify(body) : null,
     });
 
-    if (isClientRequestError(statusCode)) {
+    if (statusCode !== 200) {
         const errorBody = (
-            responseBody ? await responseBody.json() : null
+            responseBody && isClientRequestError(statusCode)
+                ? await responseBody.json()
+                : null
         ) as E;
 
         return {
