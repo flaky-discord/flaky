@@ -1,8 +1,11 @@
 {
   "name": "flaky",
   "version": "1.0.0",
-  "description": "",
+  "description": "Open Source Utility Discord Application",
   "main": "dist/index.js",
+  "files": [
+    "./dist"
+  ],
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts -D",
@@ -10,8 +13,16 @@
     "prepare": "husky"
   },
   "keywords": [],
-  "author": "",
+  "author": "John Heinrich",
   "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:loldonut/flaky.git"
+  },
+  "homepage": "https://github.com/loldonut/flaky#readme",
+  "bugs": {
+    "url": "https://github.com/loldonut/flaky/issues"
+  },
   "dependencies": {
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
