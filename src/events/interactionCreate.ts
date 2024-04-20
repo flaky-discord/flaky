@@ -11,6 +11,19 @@ import { logger } from '../utils/util';
 export default {
     name: Events.InteractionCreate,
     async execute(interaction) {
+        if (interaction.isAutocomplete()) {
+            const command = interaction.client.commands.get(
+                interaction.commandName,
+            );
+            if (!command) return;
+
+            try {
+                await command.autocomplete(interaction);
+            } catch (err) {
+                logger.error(err);
+            }
+        }
+
         if (!interaction.isChatInputCommand()) return;
 
         const command = interaction.client.commands.get(

@@ -1,4 +1,5 @@
 import {
+    AutocompleteInteraction,
     ChatInputCommandInteraction,
     ClientEvents,
     Collection,
@@ -137,6 +138,7 @@ export interface CommandOptions {
     cooldown?: number;
     data: UserSlashCommandBuilder;
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
+    autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 }
 
 export interface EventOptions<K extends keyof ClientEvents> {
