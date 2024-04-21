@@ -30,6 +30,7 @@
     "url": "https://github.com/loldonut/flaky/issues"
   },
   "dependencies": {
+    "@flaky/request-utils": "*",
     "discord.js": "^14.14.1",
     "pino": "^8.20.0",
     "pino-pretty": "^11.0.0",
