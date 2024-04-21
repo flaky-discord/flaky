@@ -6,5 +6,10 @@ export function roundTemp(weather: WeatherAPICurrentWeather['current']) {
     const feelsLikeC = Math.round(weather.feelslike_c);
     const feelsLikeF = Math.round(weather.feelslike_f);
 
-    return { c, f, feelsLikeC, feelsLikeF };
+    return {
+        c,
+        f,
+        feelsLikeC,
+        feelsLikeF,
+    };
 }

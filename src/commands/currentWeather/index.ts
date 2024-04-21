@@ -1,5 +1,4 @@
 import { Colors, EmbedBuilder } from 'discord.js';
-import 'dotenv/config';
 
 import {
     BotConfigOptions,

@@ -121,12 +121,20 @@ export enum BotConfigOptions {
     WeatherAPIKey = 'weatherApiKey',
 }
 
-export enum BotEnvConfig {
-    Token = 'token',
-    DevToken = 'dev_token',
-    ClientId = 'client_id',
-    DevClientId = 'dev_client_id',
-    WeatherAPIKey = 'weather_api_key',
+export interface BotConfig {
+    token: string;
+    devToken: string;
+    clientId: string;
+    devClientId: string;
+}
+
+export interface ApiConfig {
+    weatherApiKey: string;
+}
+
+export interface Config {
+    bot: BotConfig;
+    api: ApiConfig;
 }
 
 export interface ObjectString {
@@ -145,21 +153,6 @@ export interface EventOptions<K extends keyof ClientEvents> {
     name: Events;
     once?: boolean;
     execute(...args: ClientEvents[K]): Promise<void>;
-}
-
-// TODO: Maybe just overwrite types of process.env to `string`
-// for less hassle of having to add it to the interface (?)
-// HACK: Add these to ProcessEnv since we know it exists
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            [BotEnvConfig.Token]: string;
-            [BotEnvConfig.DevToken]: string;
-            [BotEnvConfig.ClientId]: string;
-            [BotEnvConfig.DevClientId]: string;
-            [BotEnvConfig.WeatherAPIKey]: string;
-        }
-    }
 }
 
 declare module 'discord.js' {

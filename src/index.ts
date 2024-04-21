@@ -1,5 +1,4 @@
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import 'dotenv/config';
+import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
 
 import { BotConfigOptions, CommandOptions } from './typings';
 import { getFromConfig, loadCommands, loadEvents, logger } from './utils';
@@ -14,9 +13,12 @@ client.cooldowns = new Collection<string, Collection<string, number>>();
 loadEvents(client);
 loadCommands(client);
 
-client.once('ready', () => {
-    logger.info('Bot is ready');
-});
+client
+    .on(Events.Warn, logger.warn)
+    .on(Events.Error, logger.error)
+    .once(Events.ClientReady, () => {
+        logger.info('Bot is ready');
+    });
 
 const token = getFromConfig(BotConfigOptions.Token);
 

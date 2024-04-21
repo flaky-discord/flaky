@@ -1,13 +1,22 @@
 import pino from 'pino';
 import { request } from 'undici';
-import 'dotenv/config';
+import { join } from 'node:path';
 
 import {
     BotConfigOptions,
-    BotEnvConfig,
+    Config,
     GetRequestResponse,
     UVIndex,
 } from '../typings';
+
+let config: Config;
+
+try {
+    const configPath = join(__dirname, '../..', 'config.json');
+    config = require(configPath) as Config;
+} catch {
+    throw new Error(`No configuration file found.`);
+}
 
 const [, , ...args] = process.argv;
 
@@ -24,22 +33,18 @@ export const logger = pino({
 export const isDevMode = (): boolean =>
     args.includes('-D') || args.includes('--dev');
 
-export function getFromConfig(config: BotConfigOptions): string {
+export function getFromConfig(botConfig: BotConfigOptions): string {
     const inDevMode = isDevMode();
 
-    switch (config) {
+    switch (botConfig) {
         case BotConfigOptions.Token:
-            return inDevMode
-                ? process.env[BotEnvConfig.DevToken]
-                : process.env[BotEnvConfig.Token];
+            return inDevMode ? config.bot.devToken : config.bot.token;
 
         case BotConfigOptions.ClientId:
-            return inDevMode
-                ? process.env[BotEnvConfig.DevClientId]
-                : process.env[BotEnvConfig.ClientId];
+            return inDevMode ? config.bot.devClientId : config.bot.clientId;
 
         case BotConfigOptions.WeatherAPIKey:
-            return process.env[BotEnvConfig.WeatherAPIKey];
+            return config.api.weatherApiKey;
 
         default:
             throw new Error(`Invalid config: ${config}`);

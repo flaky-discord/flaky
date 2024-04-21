@@ -3,7 +3,7 @@ import {
     RESTPostAPIChatInputApplicationCommandsJSONBody,
     Routes,
 } from 'discord.js';
-import 'dotenv/config';
+
 import { getFromConfig, logger } from './util';
 import { BotConfigOptions } from '../typings';
 
