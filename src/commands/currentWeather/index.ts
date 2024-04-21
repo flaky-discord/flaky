@@ -9,11 +9,11 @@ import {
 import {
     UserSlashCommandBuilder,
     countryList,
-    defineUVIndex,
     getFromConfig,
     getRequest,
 } from '../../utils';
 import { roundTemp } from './roundTemp';
+import { defineUVIndex } from './defineUVIndex';
 
 export default {
     name: 'current-weather',

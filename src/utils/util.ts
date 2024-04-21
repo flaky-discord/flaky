@@ -1,13 +1,9 @@
-import pino from 'pino';
-import { request } from 'undici';
 import { join } from 'node:path';
 
-import {
-    BotConfigOptions,
-    Config,
-    GetRequestResponse,
-    UVIndex,
-} from '../typings';
+import pino from 'pino';
+import { request } from 'undici';
+
+import { BotConfigOptions, Config, GetRequestResponse } from '../typings';
 
 let config: Config;
 
@@ -82,13 +78,4 @@ export async function getRequest<T = object, E = object | null | undefined>(
         ok: true,
         results: data,
     };
-}
-
-// @ts-ignore
-export function defineUVIndex(uvIndex: number): UVIndex {
-    if (uvIndex <= 2) return 'Low';
-    if (uvIndex <= 5) return 'Medium';
-    if (uvIndex <= 7) return 'High';
-    if (uvIndex <= 10) return 'Very High';
-    if (uvIndex > 10) return 'Extreme';
 }
