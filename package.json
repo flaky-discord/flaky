@@ -52,8 +52,7 @@
     "overrides": [
       {
         "files": [
-          "package.json",
-          "tsconfig.json"
+          "*.json"
         ],
         "options": {
           "tabWidth": 2
