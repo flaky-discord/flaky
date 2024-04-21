@@ -1,11 +1,11 @@
 name: ESLint CI
 on: [push]
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - name: Install packages
-              run: yarn
-            - name: Run ESLint
-              run: yarn eslint:nofix
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: yarn
+      - name: Run ESLint
+        run: yarn eslint:nofix
