@@ -68,7 +68,8 @@
     "overrides": [
       {
         "files": [
-          "*.json"
+          "*.json",
+          "*.yaml"
         ],
         "options": {
           "tabWidth": 2
