@@ -9,4 +9,18 @@ export default tseslint.config(
     {
         ignores: ['dist/**/*.js'],
     },
+    {
+        rules: {
+            '@typescript-eslint/ban-ts-comment': [
+                'error',
+                {
+                    'ts-expect-error': 'allow-with-description',
+                    'ts-ignore': false,
+                    'ts-nocheck': true,
+                    'ts-check': false,
+                    minimumDescriptionLength: 10,
+                },
+            ],
+        },
+    },
 );

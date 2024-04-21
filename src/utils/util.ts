@@ -9,6 +9,7 @@ let config: Config;
 
 try {
     const configPath = join(__dirname, '../..', 'config.json');
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     config = require(configPath) as Config;
 } catch {
     throw new Error(`No configuration file found.`);
