@@ -9,8 +9,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts -D",
-    "lint": "eslint --fix",
-    "lint:nofix": "eslint",
+    "lint": "eslint . --fix",
+    "lint:nofix": "eslint .",
     "lint:staged": "yarn lint-staged",
     "prepare": "husky"
   },
