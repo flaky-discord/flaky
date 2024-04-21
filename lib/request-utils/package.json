@@ -1,0 +1,7 @@
+{
+  "name": "@flaky/request-utils",
+  "private": true,
+  "dependencies": {
+    "undici": "^6.13.0"
+  }
+}

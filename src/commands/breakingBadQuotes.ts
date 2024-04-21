@@ -1,5 +1,7 @@
+import { getRequest } from '@flaky/request-utils';
+
 import { BreakingBadQuoteResponse, CommandOptions } from '../typings';
-import { UserSlashCommandBuilder, getRequest } from '../utils';
+import { UserSlashCommandBuilder } from '../utils';
 
 export default {
     name: 'breaking-bad',

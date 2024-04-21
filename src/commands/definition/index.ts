@@ -1,11 +1,13 @@
 import { EmbedBuilder } from 'discord.js';
 
+import { getRequest } from '@flaky/request-utils';
+
 import {
     CommandOptions,
     DictionaryAPIResponse,
     DictionaryAPIResults,
 } from '../../typings';
-import { UserSlashCommandBuilder, getRequest } from '../../utils';
+import { UserSlashCommandBuilder } from '../../utils';
 import { resolveMeanings } from './resolveMeanings';
 
 export default {

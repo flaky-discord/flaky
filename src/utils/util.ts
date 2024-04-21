@@ -1,9 +1,8 @@
 import { join } from 'node:path';
 
 import pino from 'pino';
-import { request } from 'undici';
 
-import { BotConfigOptions, Config, GetRequestResponse } from '../typings';
+import { BotConfigOptions, Config } from '../typings';
 
 let config: Config;
 
@@ -46,37 +45,4 @@ export function getFromConfig(botConfig: BotConfigOptions): string {
         default:
             throw new Error(`Invalid config: ${config}`);
     }
-}
-
-const isClientRequestError = (code: number): boolean =>
-    code >= 400 && code < 500;
-
-export async function getRequest<T = object, E = object | null | undefined>(
-    url: string,
-    body?: object,
-): Promise<GetRequestResponse<T, E>> {
-    const { body: responseBody, statusCode } = await request(url, {
-        method: 'GET',
-        body: body ? JSON.stringify(body) : null,
-    });
-
-    if (statusCode !== 200) {
-        const errorBody = (
-            responseBody && isClientRequestError(statusCode)
-                ? await responseBody.json()
-                : null
-        ) as E;
-
-        return {
-            ok: false,
-            error: errorBody,
-        };
-    }
-
-    const data = (await responseBody.json()) as T;
-
-    return {
-        ok: true,
-        results: data,
-    };
 }

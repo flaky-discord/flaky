@@ -1,5 +1,7 @@
 import { Colors, EmbedBuilder } from 'discord.js';
 
+import { getRequest } from '@flaky/request-utils';
+
 import {
     BotConfigOptions,
     CommandOptions,
@@ -10,7 +12,6 @@ import {
     UserSlashCommandBuilder,
     countryList,
     getFromConfig,
-    getRequest,
 } from '../../utils';
 import { roundTemp } from './roundTemp';
 import { defineUVIndex } from './defineUVIndex';

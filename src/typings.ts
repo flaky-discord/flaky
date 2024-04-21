@@ -109,12 +109,6 @@ export type DictionaryAPIResults = {
 
 export type DictionaryAPIResponse = Array<DictionaryAPIResults>;
 
-export type GetRequestResponse<T = unknown, E = object | undefined | null> = {
-    ok: boolean;
-    error?: E;
-    results?: T;
-};
-
 export enum BotConfigOptions {
     Token = 'token',
     ClientId = 'clientId',
