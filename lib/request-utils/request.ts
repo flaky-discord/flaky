@@ -12,11 +12,11 @@ const isClientRequestError = (code: number): boolean =>
 export async function request<T = object, E = DefaultErrorType>(
     url: string,
     method: HttpMethod,
-    body?: object,
+    options?: object,
 ): Promise<RequestResponse<T, E>> {
     const { body: responseBody, statusCode } = await httpRequest(url, {
         method,
-        body: body ? JSON.stringify(body) : null,
+        ...options,
     });
 
     if (statusCode !== 200) {
@@ -42,37 +42,37 @@ export async function request<T = object, E = DefaultErrorType>(
 
 export const getRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'GET', body);
+    options?: object,
+) => request<T, E>(url, 'GET', options);
 export const headRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'HEAD', body);
+    options?: object,
+) => request<T, E>(url, 'HEAD', options);
 export const postRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'POST', body);
+    options?: object,
+) => request<T, E>(url, 'POST', options);
 export const putRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'PUT', body);
+    options?: object,
+) => request<T, E>(url, 'PUT', options);
 export const deleteRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'DELETE', body);
+    options?: object,
+) => request<T, E>(url, 'DELETE', options);
 export const connectRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'CONNECT', body);
+    options?: object,
+) => request<T, E>(url, 'CONNECT', options);
 export const optionsRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'OPTIONS', body);
+    options?: object,
+) => request<T, E>(url, 'OPTIONS', options);
 export const traceRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'TRACE', body);
+    options?: object,
+) => request<T, E>(url, 'TRACE', options);
 export const patchRequest = <T, E = DefaultErrorType>(
     url: string,
-    body?: object,
-) => request<T, E>(url, 'PATCH', body);
+    options?: object,
+) => request<T, E>(url, 'PATCH', options);
