@@ -1,4 +1,4 @@
-export type GetRequestResponse<T = unknown, E = object | undefined | null> = {
+export type RequestResponse<T = unknown, E = object | undefined | null> = {
     ok: boolean;
     error?: E;
     results?: T;

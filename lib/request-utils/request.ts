@@ -1,6 +1,6 @@
 import { request as httpRequest } from 'undici';
 
-import type { GetRequestResponse, HttpMethod } from './typings.d.ts';
+import type { RequestResponse, HttpMethod } from './typings.d.ts';
 
 const isClientRequestError = (code: number): boolean =>
     code >= 400 && code < 500;
@@ -9,7 +9,7 @@ export async function request<T = object, E = object | null | undefined>(
     url: string,
     method: HttpMethod,
     body?: object,
-): Promise<GetRequestResponse<T, E>> {
+): Promise<RequestResponse<T, E>> {
     const { body: responseBody, statusCode } = await httpRequest(url, {
         method,
         body: body ? JSON.stringify(body) : null,
