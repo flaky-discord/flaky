@@ -1,4 +1,6 @@
-export type RequestResponse<T = unknown, E = object | undefined | null> = {
+export type DefaultErrorType = object | undefined | null;
+
+export type RequestResponse<T = unknown, E = DefaultErrorType> = {
     ok: boolean;
     error?: E;
     results?: T;

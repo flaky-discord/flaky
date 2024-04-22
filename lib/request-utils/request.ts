@@ -1,11 +1,15 @@
 import { request as httpRequest } from 'undici';
 
-import type { RequestResponse, HttpMethod } from './typings.d.ts';
+import type {
+    RequestResponse,
+    HttpMethod,
+    DefaultErrorType,
+} from './typings.d.ts';
 
 const isClientRequestError = (code: number): boolean =>
     code >= 400 && code < 500;
 
-export async function request<T = object, E = object | null | undefined>(
+export async function request<T = object, E = DefaultErrorType>(
     url: string,
     method: HttpMethod,
     body?: object,
@@ -36,39 +40,39 @@ export async function request<T = object, E = object | null | undefined>(
     };
 }
 
-export const getRequest = <T, E = object | null | undefined>(
+export const getRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'GET', body);
-export const headRequest = <T, E = object | null | undefined>(
+export const headRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'HEAD', body);
-export const postRequest = <T, E = object | null | undefined>(
+export const postRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'POST', body);
-export const putRequest = <T, E = object | null | undefined>(
+export const putRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'PUT', body);
-export const deleteRequest = <T, E = object | null | undefined>(
+export const deleteRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'DELETE', body);
-export const connectRequest = <T, E = object | null | undefined>(
+export const connectRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'CONNECT', body);
-export const optionsRequest = <T, E = object | null | undefined>(
+export const optionsRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'OPTIONS', body);
-export const traceRequest = <T, E = object | null | undefined>(
+export const traceRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'TRACE', body);
-export const patchRequest = <T, E = object | null | undefined>(
+export const patchRequest = <T, E = DefaultErrorType>(
     url: string,
     body?: object,
 ) => request<T, E>(url, 'PATCH', body);
