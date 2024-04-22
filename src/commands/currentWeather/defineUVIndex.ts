@@ -1,3 +1,5 @@
+import { UVIndex } from '../../typings';
+
 // @ts-ignore
 export function defineUVIndex(uvIndex: number): UVIndex {
     if (uvIndex <= 2) return 'Low';
