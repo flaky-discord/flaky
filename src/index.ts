@@ -1,10 +1,35 @@
-import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
+import {
+    Client,
+    Collection,
+    Events,
+    GatewayIntentBits,
+    Options,
+} from 'discord.js';
 
 import { BotConfigOptions, CommandOptions } from './typings';
 import { getFromConfig, loadCommands, loadEvents, logger } from './utils';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
+    makeCache: Options.cacheWithLimits({
+        ...Options.DefaultMakeCacheSettings,
+        GuildBanManager: 0,
+        PresenceManager: 0,
+        ReactionManager: 0,
+        ReactionUserManager: 0,
+        VoiceStateManager: 0,
+    }),
+    sweepers: {
+        ...Options.DefaultSweeperSettings,
+        messages: {
+            interval: 3_000,
+            lifetime: 1_600,
+        },
+        users: {
+            interval: 3_600,
+            filter: () => (user) => user.bot && user.id !== user.client.user.id,
+        },
+    },
 });
 
 client.commands = new Collection<string, CommandOptions>();
