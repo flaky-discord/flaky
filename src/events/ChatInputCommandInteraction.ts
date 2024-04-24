@@ -55,7 +55,16 @@ export default {
         );
 
         try {
-            await command.execute(interaction);
+            if (command.subcommand) {
+                const subcommandName = interaction.options.getSubcommand(true);
+                const subcommand =
+                    interaction.client.subCommands.get(subcommandName)!;
+
+                await subcommand.execute(interaction);
+                return;
+            }
+
+            await command.execute!(interaction);
         } catch (err) {
             if (
                 err instanceof DiscordAPIError &&

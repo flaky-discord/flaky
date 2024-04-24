@@ -4,6 +4,7 @@ import {
     ClientEvents,
     Collection,
     Events,
+    SlashCommandSubcommandBuilder,
 } from 'discord.js';
 
 import { UserSlashCommandBuilder } from './utils';
@@ -138,9 +139,16 @@ export interface ObjectString {
 export interface CommandOptions {
     name: string;
     cooldown?: number;
+    subcommand?: boolean;
     data: UserSlashCommandBuilder;
+    execute?(interaction: ChatInputCommandInteraction): Promise<void>;
+    autocomplete?(interaction: AutocompleteInteraction): Promise<void>;
+}
+
+export interface SubcommandOptions {
+    name: string;
+    data: SlashCommandSubcommandBuilder;
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
-    autocomplete(interaction: AutocompleteInteraction): Promise<void>;
 }
 
 export interface EventOptions<K extends keyof ClientEvents> {
@@ -152,6 +160,7 @@ export interface EventOptions<K extends keyof ClientEvents> {
 declare module 'discord.js' {
     export interface Client {
         commands: Collection<string, CommandOptions>;
+        subCommands: Collection<string, SubcommandOptions>;
         cooldowns: Collection<string, Collection<string, number>>;
     }
 }

@@ -14,6 +14,7 @@ export default {
         if (!command) return;
 
         try {
+            // @ts-expect-error this event would only fire if it's an autocomplete anyway.
             await command.autocomplete(interaction);
         } catch (err) {
             logger.error(err);

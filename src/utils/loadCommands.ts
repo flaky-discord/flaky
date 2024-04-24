@@ -5,9 +5,12 @@ import {
     Client,
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
+
 import { logger, registerCommands } from './index';
+import { CommandOptions, SubcommandOptions } from '../typings';
 
 const commandsPath = join(__dirname, '..', 'commands');
+const subcommandsPath = join(__dirname, '..', 'subcommands');
 
 const fileFilter = (file: string): boolean =>
     file.endsWith('.js') || file.endsWith('.ts');
@@ -27,14 +30,10 @@ async function loadCommand(
     client.commands.set(command.name, command);
 }
 
-export default async function loadCommands(client: Client): Promise<void> {
-    const commandFiles = readdirSync(commandsPath).filter(fileFilter);
+async function loadCommandFolders(client: Client): Promise<void> {
     const commandFolders = readdirSync(commandsPath).filter(
         (file) => !fileFilter(file),
     );
-
-    for (const file of commandFiles)
-        await loadCommand(client, commandsPath, file);
 
     for (const folders of commandFolders) {
         const folderCommandsPath = join(commandsPath, folders);
@@ -45,6 +44,40 @@ export default async function loadCommands(client: Client): Promise<void> {
         for (const file of folderCommandFiles)
             await loadCommand(client, folderCommandsPath, file);
     }
+}
 
+async function loadSubcommands(client: Client): Promise<void> {
+    const subcommandsFolders = readdirSync(subcommandsPath).filter(
+        (file) => !fileFilter(file),
+    );
+
+    for (const folder of subcommandsFolders) {
+        const folderSubcommandsPath = join(subcommandsPath, folder);
+        const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
+            (file) => !file.startsWith('index') && fileFilter(file),
+        );
+        const subcommandIndex = (await import(folderSubcommandsPath))
+            .default as CommandOptions;
+
+        for (const file of subcommandFiles) {
+            const subcommand = (await import(join(folderSubcommandsPath, file)))
+                .default as SubcommandOptions;
+
+            client.subCommands.set(subcommand.name, subcommand);
+            subcommandIndex.data.addSubcommand(subcommand.data);
+        }
+
+        await loadCommand(client, folderSubcommandsPath, 'index');
+    }
+}
+
+export default async function loadCommands(client: Client): Promise<void> {
+    const commandFiles = readdirSync(commandsPath).filter(fileFilter);
+
+    for (const file of commandFiles)
+        await loadCommand(client, commandsPath, file);
+
+    await loadCommandFolders(client);
+    await loadSubcommands(client);
     await registerCommands(commandsBuilders);
 }

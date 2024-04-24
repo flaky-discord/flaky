@@ -6,7 +6,7 @@ import {
     Options,
 } from 'discord.js';
 
-import { BotConfigOptions, CommandOptions } from './typings';
+import { BotConfigOptions, CommandOptions, SubcommandOptions } from './typings';
 import { getFromConfig, loadCommands, loadEvents, logger } from './utils';
 
 const client = new Client({
@@ -33,6 +33,7 @@ const client = new Client({
 });
 
 client.commands = new Collection<string, CommandOptions>();
+client.subCommands = new Collection<string, SubcommandOptions>();
 client.cooldowns = new Collection<string, Collection<string, number>>();
 
 loadEvents(client);
