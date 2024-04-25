@@ -1,11 +1,10 @@
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
 
-import { Client } from 'discord.js';
-
+import { Bot } from '@flaky/core';
 import { importDefault } from './util';
 
-export default async function loadEvents(client: Client): Promise<void> {
+export default async function loadEvents(bot: Bot): Promise<void> {
     const eventsPath = join(__dirname, '..', 'events');
     const eventFiles = readdirSync(eventsPath).filter(
         (file) => file.endsWith('.ts') || file.endsWith('.js'),
@@ -15,9 +14,9 @@ export default async function loadEvents(client: Client): Promise<void> {
         const event = await importDefault(join(eventsPath, file));
 
         if (event.once === true) {
-            client.once(event.name, (...args) => event.execute(...args));
+            bot.once(event.name, (...args) => event.execute(...args));
         } else {
-            client.on(event.name, (...args) => event.execute(...args));
+            bot.on(event.name, (...args) => event.execute(...args));
         }
     }
 }

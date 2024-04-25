@@ -1,11 +1,9 @@
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
 
-import {
-    Client,
-    RESTPostAPIChatInputApplicationCommandsJSONBody,
-} from 'discord.js';
+import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
 
+import { Bot } from '@flaky/core';
 import { importDefault, logger, registerCommands } from './index';
 import { CommandOptions, SubcommandOptions } from '../typings';
 
@@ -19,7 +17,7 @@ const commandsBuilders =
     [] as RESTPostAPIChatInputApplicationCommandsJSONBody[];
 
 async function loadCommand(
-    client: Client,
+    bot: Bot,
     path: string,
     file: string,
 ): Promise<void> {
@@ -27,10 +25,10 @@ async function loadCommand(
     logger.info(`Loaded command, ${command.name}`);
 
     commandsBuilders.push(command.data.toJSON());
-    client.commands.set(command.name, command);
+    bot.commands.set(command.name, command);
 }
 
-async function loadCommandFolders(client: Client): Promise<void> {
+async function loadCommandFolders(bot: Bot): Promise<void> {
     const commandFolders = readdirSync(commandsPath).filter(
         (file) => !fileFilter(file),
     );
@@ -42,11 +40,11 @@ async function loadCommandFolders(client: Client): Promise<void> {
         );
 
         for (const file of folderCommandFiles)
-            await loadCommand(client, folderCommandsPath, file);
+            await loadCommand(bot, folderCommandsPath, file);
     }
 }
 
-async function loadSubcommands(client: Client): Promise<void> {
+async function loadSubcommands(client: Bot): Promise<void> {
     const subcommandsFolders = readdirSync(subcommandsPath).filter(
         (file) => !fileFilter(file),
     );
@@ -73,13 +71,12 @@ async function loadSubcommands(client: Client): Promise<void> {
     }
 }
 
-export default async function loadCommands(client: Client): Promise<void> {
+export default async function loadCommands(bot: Bot): Promise<void> {
     const commandFiles = readdirSync(commandsPath).filter(fileFilter);
 
-    for (const file of commandFiles)
-        await loadCommand(client, commandsPath, file);
+    for (const file of commandFiles) await loadCommand(bot, commandsPath, file);
 
-    await loadCommandFolders(client);
-    await loadSubcommands(client);
+    await loadCommandFolders(bot);
+    await loadSubcommands(bot);
     await registerCommands(commandsBuilders);
 }

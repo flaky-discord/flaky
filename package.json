@@ -8,7 +8,8 @@
     "./dist"
   ],
   "workspaces": [
-    "lib/*"
+    "lib/*",
+    "src/*"
   ],
   "scripts": {
     "start": "ts-node src/index.ts",
