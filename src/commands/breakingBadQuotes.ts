@@ -1,6 +1,10 @@
 import { getRequest } from '@flaky/request-utils';
 
-import { BreakingBadQuoteResponse, CommandOptions } from '../typings';
+import {
+    BreakingBadQuoteResponse,
+    BreakingBadQuote,
+    CommandOptions,
+} from '../typings';
 import { UserSlashCommandBuilder } from '../utils';
 
 export default {
@@ -14,8 +18,7 @@ export default {
 
         // TODO: Make a *proper* type for `BreakingBadQuoteResponse`
         //       as the type does not represent the actual response from the API
-        const response =
-            await getRequest<Array<BreakingBadQuoteResponse>>(quotes);
+        const response = await getRequest<BreakingBadQuoteResponse>(quotes);
 
         if (!response.ok) {
             await interaction.reply({
@@ -25,8 +28,7 @@ export default {
             return;
         }
 
-        const { quote, author } = response
-            .results![0] as BreakingBadQuoteResponse;
+        const { quote, author } = response.results![0] as BreakingBadQuote;
 
         const quoteFormatted = `_${quote}_\n\n**\\- ${author}**`;
         await interaction.reply({

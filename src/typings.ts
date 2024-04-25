@@ -9,10 +9,12 @@ import {
 
 import { UserSlashCommandBuilder } from './utils';
 
-export type BreakingBadQuoteResponse = {
+export type BreakingBadQuote = {
     quote: string;
     author: string;
 };
+
+export type BreakingBadQuoteResponse = Array<BreakingBadQuote>;
 
 export type WeatherAPIError = {
     error: {
