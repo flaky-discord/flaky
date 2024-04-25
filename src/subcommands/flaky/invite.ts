@@ -13,7 +13,7 @@ export default {
         });
 
         await interaction.reply({
-            content: `[__**Invite the bot here**__](<${link}>)`,
+            content: `> Click on \`Try It Now\` to use the bot globally.\n[__**Invite the bot here**__](<${link}>)`,
         });
     },
 } as SubcommandOptions;
