@@ -1,4 +1,5 @@
 export type DefaultErrorType = object | undefined | null;
+export type DefaultResultsType = object | string;
 
 export type RequestResponse<T = unknown, E = DefaultErrorType> = {
     ok: boolean;

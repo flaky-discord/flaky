@@ -4,12 +4,13 @@ import type {
     RequestResponse,
     HttpMethod,
     DefaultErrorType,
+    DefaultResultsType,
 } from './typings.d.ts';
 
 const isClientRequestError = (code: number): boolean =>
     code >= 400 && code < 500;
 
-export async function request<T = object, E = DefaultErrorType>(
+export async function request<T = DefaultResultsType, E = DefaultErrorType>(
     url: string,
     method: HttpMethod,
     options?: object,
@@ -32,7 +33,12 @@ export async function request<T = object, E = DefaultErrorType>(
         };
     }
 
-    const data = (await responseBody.json()) as T;
+    let data: T;
+    try {
+        data = (await responseBody.json()) as T;
+    } catch {
+        data = (await responseBody.text()) as T;
+    }
 
     return {
         ok: true,
