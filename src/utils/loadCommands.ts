@@ -6,7 +6,7 @@ import {
     RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from 'discord.js';
 
-import { logger, registerCommands } from './index';
+import { importDefault, logger, registerCommands } from './index';
 import { CommandOptions, SubcommandOptions } from '../typings';
 
 const commandsPath = join(__dirname, '..', 'commands');
@@ -23,7 +23,7 @@ async function loadCommand(
     path: string,
     file: string,
 ): Promise<void> {
-    const command = (await import(join(path, file))).default;
+    const command = await importDefault(join(path, file));
     logger.info(`Loaded command, ${command.name}`);
 
     commandsBuilders.push(command.data.toJSON());
@@ -56,12 +56,14 @@ async function loadSubcommands(client: Client): Promise<void> {
         const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
             (file) => !file.startsWith('index') && fileFilter(file),
         );
-        const subcommandIndex = (await import(folderSubcommandsPath))
-            .default as CommandOptions;
+        const subcommandIndex = (await importDefault(
+            folderSubcommandsPath,
+        )) as CommandOptions;
 
         for (const file of subcommandFiles) {
-            const subcommand = (await import(join(folderSubcommandsPath, file)))
-                .default as SubcommandOptions;
+            const subcommand = (await importDefault(
+                join(folderSubcommandsPath, file),
+            )) as SubcommandOptions;
 
             client.subCommands.set(subcommand.name, subcommand);
             subcommandIndex.data.addSubcommand(subcommand.data);

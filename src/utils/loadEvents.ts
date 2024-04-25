@@ -3,6 +3,8 @@ import { readdirSync } from 'node:fs';
 
 import { Client } from 'discord.js';
 
+import { importDefault } from './util';
+
 export default async function loadEvents(client: Client): Promise<void> {
     const eventsPath = join(__dirname, '..', 'events');
     const eventFiles = readdirSync(eventsPath).filter(
@@ -10,7 +12,7 @@ export default async function loadEvents(client: Client): Promise<void> {
     );
 
     for (const file of eventFiles) {
-        const event = (await import(join(eventsPath, file))).default;
+        const event = await importDefault(join(eventsPath, file));
 
         if (event.once === true) {
             client.once(event.name, (...args) => event.execute(...args));
