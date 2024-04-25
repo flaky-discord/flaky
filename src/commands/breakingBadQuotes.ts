@@ -16,8 +16,6 @@ export default {
         const api = 'https://api.breakingbadquotes.xyz';
         const quotes = `${api}/v1/quotes`;
 
-        // TODO: Make a *proper* type for `BreakingBadQuoteResponse`
-        //       as the type does not represent the actual response from the API
         const response = await getRequest<BreakingBadQuoteResponse>(quotes);
 
         if (!response.ok) {
