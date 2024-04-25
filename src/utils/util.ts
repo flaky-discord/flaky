@@ -42,6 +42,9 @@ export function getFromConfig(botConfig: BotConfigOptions): string {
         case BotConfigOptions.WeatherAPIKey:
             return config.api.weatherApiKey;
 
+        case BotConfigOptions.GitUrl:
+            return config.git.url;
+
         default:
             throw new Error(`Invalid config: ${config}`);
     }

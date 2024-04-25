@@ -114,6 +114,7 @@ export enum BotConfigOptions {
     Token = 'token',
     ClientId = 'clientId',
     WeatherAPIKey = 'weatherApiKey',
+    GitUrl = 'gitUrl',
 }
 
 export interface BotConfig {
@@ -127,8 +128,13 @@ export interface ApiConfig {
     weatherApiKey: string;
 }
 
+export interface GitConfig {
+    url: string;
+}
+
 export interface Config {
     bot: BotConfig;
+    git: GitConfig;
     api: ApiConfig;
 }
 
