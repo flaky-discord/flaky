@@ -3,13 +3,13 @@
         "token": "", // The bot's token
         "devToken": "", // Development Bot Token
         "clientId": "",
-        "devClientId": "",
+        "devClientId": ""
     },
     "git": {
         // URL to bot's source code/repository
-        "url": "https://github.com/loldonut/flaky",
+        "url": "https://github.com/loldonut/flaky"
     },
     "api": {
-        "weatherApiKey": "", // A Weather API Key
-    },
+        "weatherApiKey": "" // A Weather API Key
+    }
 }
