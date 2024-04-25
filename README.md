@@ -34,7 +34,7 @@ npm start
 
 ## Config
 
-**See [`config example`](./conifg.example.jsonc)**
+**See [`config example`](./config.example.jsonc)**
 
 ### Open source
 
