@@ -125,6 +125,11 @@ export enum InteractionContextType {
     PrivateChannel,
 }
 
+export enum InteractionIntegrationType {
+    GuildInstall,
+    UserInstall,
+}
+
 export interface BotConfig {
     token: string;
     devToken: string;

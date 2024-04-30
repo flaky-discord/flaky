@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
 
-import { InteractionContextType } from '../typings';
+import { InteractionContextType, InteractionIntegrationType } from '../typings';
 
 export default class UserSlashCommandBuilder extends SlashCommandBuilder {
     public integration_types: Array<number>;
@@ -8,11 +8,20 @@ export default class UserSlashCommandBuilder extends SlashCommandBuilder {
 
     public constructor() {
         super();
-        this.integration_types = [1];
+        this.integration_types = [InteractionIntegrationType.UserInstall];
         this.contexts = [
             InteractionContextType.Guild,
             InteractionContextType.BotDm,
             InteractionContextType.PrivateChannel,
         ];
+    }
+
+    /**
+     * Set command as usable for both as a Guild Bot
+     * and as a user-installed application
+     * */
+    public setGlobalCommand(): UserSlashCommandBuilder {
+        this.integration_types.push(InteractionIntegrationType.GuildInstall);
+        return this;
     }
 }
