@@ -119,6 +119,12 @@ export enum BotConfigOptions {
     GitUrl = 'gitUrl',
 }
 
+export enum InteractionContextType {
+    Guild,
+    BotDm,
+    PrivateChannel,
+}
+
 export interface BotConfig {
     token: string;
     devToken: string;
