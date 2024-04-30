@@ -7,7 +7,13 @@ import {
 } from 'discord.js';
 
 import { BotConfigOptions, CommandOptions, SubcommandOptions } from './typings';
-import { getFromConfig, loadCommands, loadEvents, logger } from './utils';
+import {
+    getFromConfig,
+    loadCommands,
+    loadEvents,
+    logger,
+    sendFromBotStatusChannel,
+} from './utils';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -32,6 +38,8 @@ const client = new Client({
     },
 });
 
+sendFromBotStatusChannel('Bot is starting');
+
 client.commands = new Collection<string, CommandOptions>();
 client.subCommands = new Collection<string, SubcommandOptions>();
 client.cooldowns = new Collection<string, Collection<string, number>>();
@@ -43,6 +51,7 @@ client
     .on(Events.Warn, logger.warn)
     .on(Events.Error, logger.error)
     .once(Events.ClientReady, () => {
+        sendFromBotStatusChannel('Bot is ready');
         logger.info('Bot is ready');
     });
 

@@ -3,7 +3,10 @@
         "token": "", // The bot's token
         "devToken": "", // Development Bot Token
         "clientId": "",
-        "devClientId": ""
+        "devClientId": "",
+        // Channel to send the bot's status
+        // (Does not send status when in dev mode)
+        "statusChannelId": ""
     },
     "git": {
         // URL to bot's source code/repository

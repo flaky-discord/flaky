@@ -117,6 +117,7 @@ export enum BotConfigOptions {
     ClientId = 'clientId',
     WeatherAPIKey = 'weatherApiKey',
     GitUrl = 'gitUrl',
+    BotStatusChannelId = 'botStatusChannelId',
 }
 
 export enum InteractionContextType {
@@ -135,6 +136,7 @@ export interface BotConfig {
     devToken: string;
     clientId: string;
     devClientId: string;
+    statusChannelId: string;
 }
 
 export interface ApiConfig {
