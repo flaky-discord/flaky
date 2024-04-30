@@ -1,6 +1,6 @@
 import { postRequest } from '@flaky/request-utils';
 import { CommandOptions } from '../typings';
-import { UserSlashCommandBuilder } from '../utils';
+import { UserSlashCommandBuilder } from '@flaky/utils';
 
 // TODO: Add types for cobalt
 //       or make a lib for cobalt

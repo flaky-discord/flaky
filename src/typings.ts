@@ -7,7 +7,7 @@ import {
     SlashCommandSubcommandBuilder,
 } from 'discord.js';
 
-import { UserSlashCommandBuilder } from './utils';
+import { UserSlashCommandBuilder } from '@flaky/utils';
 
 export type BreakingBadQuote = {
     quote: string;

@@ -1,7 +1,7 @@
 import { EmbedBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 
 import { BotConfigOptions, SubcommandOptions } from '../../typings';
-import { getFromConfig } from '../../utils';
+import { getFromConfig } from '@flaky/utils';
 
 export default {
     name: 'source',

@@ -12,7 +12,7 @@ import {
     UserSlashCommandBuilder,
     countryList,
     getFromConfig,
-} from '../../utils';
+} from '@flaky/utils';
 import { roundTemp } from './roundTemp';
 import { defineUVIndex } from './defineUVIndex';
 

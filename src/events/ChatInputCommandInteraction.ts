@@ -6,7 +6,7 @@ import {
 } from 'discord.js';
 
 import { EventOptions } from '../typings';
-import { logger } from '../utils';
+import { logger } from '@flaky/utils';
 
 export default {
     name: Events.InteractionCreate,

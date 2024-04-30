@@ -5,7 +5,7 @@ import {
     BreakingBadQuote,
     CommandOptions,
 } from '../typings';
-import { UserSlashCommandBuilder } from '../utils';
+import { UserSlashCommandBuilder } from '@flaky/utils';
 
 export default {
     name: 'breaking-bad',

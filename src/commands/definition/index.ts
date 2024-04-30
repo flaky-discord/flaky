@@ -7,7 +7,7 @@ import {
     DictionaryAPIResponse,
     DictionaryAPIResults,
 } from '../../typings';
-import { UserSlashCommandBuilder } from '../../utils';
+import { UserSlashCommandBuilder } from '@flaky/utils';
 import { resolveMeanings } from './resolveMeanings';
 
 export default {

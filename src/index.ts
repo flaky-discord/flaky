@@ -13,7 +13,7 @@ import {
     loadEvents,
     logger,
     sendFromBotStatusChannel,
-} from './utils';
+} from '@flaky/utils';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],

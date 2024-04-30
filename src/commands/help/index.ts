@@ -1,7 +1,7 @@
 import { Colors, EmbedBuilder, inlineCode } from 'discord.js';
 
 import { CommandOptions } from '../../typings';
-import { UserSlashCommandBuilder } from '../../utils';
+import { UserSlashCommandBuilder } from '@flaky/utils';
 
 // TODO: Add more command options
 //       like `args`, `perms`, etc.
