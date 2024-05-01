@@ -34,6 +34,12 @@ export type WeatherAPICurrentWeatherLocation = {
     localtime: string;
 };
 
+export type WeatherAPICurrentWeatherCondition = {
+    text: string;
+    icon: string;
+    code: number;
+};
+
 export type WeatherAPICurrentWeather = {
     location: WeatherAPICurrentWeatherLocation;
     current: {
@@ -42,11 +48,7 @@ export type WeatherAPICurrentWeather = {
         temp_c: number;
         temp_f: number;
         is_day: number;
-        condition: {
-            text: string;
-            icon: string;
-            code: number;
-        };
+        condition: WeatherAPICurrentWeatherCondition;
         wind_mph: number;
         wind_kph: number;
         wind_degree: number;
