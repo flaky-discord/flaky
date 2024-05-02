@@ -54,16 +54,19 @@ async function loadSubcommands(client: Client): Promise<void> {
     for (const folder of subcommandsFolders) {
         const folderSubcommandsPath = join(subcommandsPath, folder);
         const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
-            (file) => !file.startsWith('index') && !fileFilter(file),
+            (file) => !file.startsWith('index'),
         );
+
         const subcommandIndex = (await importDefault(
             folderSubcommandsPath,
         )) as CommandOptions;
 
         for (const file of subcommandFiles) {
-            const subcommand = (await importDefault(
-                join(folderSubcommandsPath, file),
-            )) as SubcommandOptions;
+            // Not using `importDefault` here because
+            // for some reason discord.js cannot validate the
+            // subcommand class proeprly
+            const subcommand = (await import(join(folderSubcommandsPath, file)))
+                .default as SubcommandOptions;
 
             client.subCommands.set(subcommand.name, subcommand);
             subcommandIndex.data.addSubcommand(subcommand.data);
