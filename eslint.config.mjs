@@ -7,7 +7,7 @@ export default tseslint.config(
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        ignores: ['dist/**/*.js'],
+        ignores: ['dist/**/*.js', 'lib/**/*.js'],
     },
     {
         rules: {
