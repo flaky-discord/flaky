@@ -30,8 +30,8 @@ export const logger = pino({
 export const isDevMode = (): boolean =>
     args.includes('-D') || args.includes('--dev');
 
-export const importDefault = async (path: string) =>
-    (await import(path)).default;
+export const importDefault = async <T = unknown>(path: string): Promise<T> =>
+    (await import(path)).default as T;
 
 export function getFromConfig(botConfig: BotConfigOptions): string {
     const inDevMode = isDevMode();

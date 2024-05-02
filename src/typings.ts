@@ -164,7 +164,7 @@ export interface SubcommandOptions {
 }
 
 export interface EventOptions<K extends keyof ClientEvents> {
-    name: Events;
+    name: keyof ClientEvents | Events;
     once?: boolean;
     execute(...args: ClientEvents[K]): Promise<void>;
 }

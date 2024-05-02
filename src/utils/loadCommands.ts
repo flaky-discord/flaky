@@ -23,7 +23,7 @@ async function loadCommand(
     path: string,
     file: string,
 ): Promise<void> {
-    const command = await importDefault(join(path, file));
+    const command = await importDefault<CommandOptions>(join(path, file));
     logger.info(`Loaded command, ${command.name}`);
 
     commandsBuilders.push(command.data.toJSON());
@@ -62,11 +62,9 @@ async function loadSubcommands(client: Client): Promise<void> {
         )) as CommandOptions;
 
         for (const file of subcommandFiles) {
-            // Not using `importDefault` here because
-            // for some reason discord.js cannot validate the
-            // subcommand class proeprly
-            const subcommand = (await import(join(folderSubcommandsPath, file)))
-                .default as SubcommandOptions;
+            const subcommand = await importDefault<SubcommandOptions>(
+                join(folderSubcommandsPath, file),
+            );
 
             client.subCommands.set(subcommand.name, subcommand);
             subcommandIndex.data.addSubcommand(subcommand.data);
