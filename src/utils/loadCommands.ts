@@ -54,7 +54,7 @@ async function loadSubcommands(client: Client): Promise<void> {
     for (const folder of subcommandsFolders) {
         const folderSubcommandsPath = join(subcommandsPath, folder);
         const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
-            (file) => !file.startsWith('index') && fileFilter(file),
+            (file) => !file.startsWith('index') && !fileFilter(file),
         );
         const subcommandIndex = (await importDefault(
             folderSubcommandsPath,
