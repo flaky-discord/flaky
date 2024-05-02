@@ -1,6 +1,7 @@
 import { Colors, EmbedBuilder } from 'discord.js';
 
 import { getRequest } from '@flaky/request-utils';
+import { UserSlashCommandBuilder } from 'discord-user-installable';
 
 import {
     BotConfigOptions,
@@ -8,11 +9,7 @@ import {
     WeatherAPICurrentWeather,
     WeatherAPIError,
 } from '../../typings';
-import {
-    UserSlashCommandBuilder,
-    countryList,
-    getFromConfig,
-} from '@flaky/utils';
+import { countryList, getFromConfig } from '@flaky/utils';
 import { roundTemp } from './roundTemp';
 import { defineUVIndex } from './defineUVIndex';
 

@@ -5,7 +5,7 @@ import {
     BreakingBadQuote,
     CommandOptions,
 } from '../typings';
-import { UserSlashCommandBuilder } from '@flaky/utils';
+import { UserSlashCommandBuilder } from 'discord-user-installable';
 
 export default {
     name: 'breaking-bad',

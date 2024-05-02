@@ -1,0 +1,3 @@
+[submodule "lib/discord-user-installable"]
+	path = lib/discord-user-installable
+	url = git@github.com:loldonut/discord-user-installable.git

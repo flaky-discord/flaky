@@ -7,7 +7,7 @@ import {
     DictionaryAPIResponse,
     DictionaryAPIResults,
 } from '../../typings';
-import { UserSlashCommandBuilder } from '@flaky/utils';
+import { UserSlashCommandBuilder } from 'discord-user-installable';
 import { resolveMeanings } from './resolveMeanings';
 
 export default {

@@ -1,6 +1,6 @@
 import { postRequest } from '@flaky/request-utils';
 import { CommandOptions } from '../typings';
-import { UserSlashCommandBuilder } from '@flaky/utils';
+import { UserSlashCommandBuilder } from 'discord-user-installable';
 
 // TODO: Add types for cobalt
 //       or make a lib for cobalt

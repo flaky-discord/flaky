@@ -7,7 +7,7 @@ import {
     SlashCommandSubcommandBuilder,
 } from 'discord.js';
 
-import { UserSlashCommandBuilder } from '@flaky/utils';
+import { UserSlashCommandBuilder } from 'discord-user-installable';
 
 export type BreakingBadQuote = {
     quote: string;
@@ -120,17 +120,6 @@ export enum BotConfigOptions {
     WeatherAPIKey = 'weatherApiKey',
     GitUrl = 'gitUrl',
     BotStatusChannelId = 'botStatusChannelId',
-}
-
-export enum InteractionContextType {
-    Guild,
-    BotDm,
-    PrivateChannel,
-}
-
-export enum InteractionIntegrationType {
-    GuildInstall,
-    UserInstall,
 }
 
 export interface BotConfig {
