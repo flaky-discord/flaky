@@ -161,6 +161,7 @@ export interface SubcommandOptions {
     name: string;
     data: SlashCommandSubcommandBuilder;
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
+    autocomplete?(interaction: AutocompleteInteraction): Promise<void>;
 }
 
 export interface EventOptions<K extends keyof ClientEvents> {
