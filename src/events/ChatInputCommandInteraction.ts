@@ -57,8 +57,9 @@ export default {
         try {
             if (command.subcommand) {
                 const subcommandName = interaction.options.getSubcommand(true);
-                const subcommand =
-                    interaction.client.subCommands.get(subcommandName)!;
+                const subcommand = interaction.client.subCommands.get(
+                    `${command.name}-${subcommandName}`,
+                )!;
 
                 await subcommand.execute(interaction);
                 return;

@@ -15,9 +15,10 @@ export default {
 
         try {
             if (command.subcommand) {
-                const subcommadName = interaction.options.getSubcommand();
-                const subcommand =
-                    interaction.client.subCommands.get(subcommadName);
+                const subcommandName = interaction.options.getSubcommand();
+                const subcommand = interaction.client.subCommands.get(
+                    `${command.name}-${subcommandName}`,
+                );
 
                 // @ts-expect-error (same here) this event would only fire if it's an autocomplete anyway.
                 await subcommand.autocomplete(interaction);

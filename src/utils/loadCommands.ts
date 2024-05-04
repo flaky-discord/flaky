@@ -66,7 +66,10 @@ async function loadSubcommands(client: Client): Promise<void> {
                 join(folderSubcommandsPath, file),
             );
 
-            client.subCommands.set(subcommand.name, subcommand);
+            client.subCommands.set(
+                `${subcommandIndex.name}-${subcommand.name}`,
+                subcommand,
+            );
             subcommandIndex.data.addSubcommand(subcommand.data);
         }
 
