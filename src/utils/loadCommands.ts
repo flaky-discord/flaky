@@ -46,6 +46,30 @@ async function loadCommandFolders(client: Client): Promise<void> {
     }
 }
 
+interface ReaddirIndexAndFiles<I, F> {
+    index: I;
+    files: F[];
+}
+async function readdirOfIndexAndFiles<I, F>(
+    path: string,
+): Promise<ReaddirIndexAndFiles<I, F>> {
+    const indexFile = (await importDefault(path)) as I;
+    const files = [] as F[];
+
+    const filesPath = readdirSync(path).filter(
+        (file) => !file.startsWith('index'),
+    );
+    for (const file of filesPath) {
+        const content = await importDefault<F>(join(path, file));
+        files.push(content);
+    }
+
+    return {
+        index: indexFile,
+        files: files,
+    };
+}
+
 async function loadSubcommands(client: Client): Promise<void> {
     const subcommandsFolders = readdirSync(subcommandsPath).filter(
         (file) => !fileFilter(file),
@@ -53,13 +77,40 @@ async function loadSubcommands(client: Client): Promise<void> {
 
     for (const folder of subcommandsFolders) {
         const folderSubcommandsPath = join(subcommandsPath, folder);
-        const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
-            (file) => !file.startsWith('index'),
-        );
 
         const subcommandIndex = (await importDefault(
             folderSubcommandsPath,
         )) as CommandOptions;
+
+        if (subcommandIndex.subcommandGroup) {
+            const subcommandGroupFolders = readdirSync(
+                folderSubcommandsPath,
+            ).filter((file) => !file.startsWith('index'));
+
+            for (const subcommandGroup of subcommandGroupFolders) {
+                const { index, files } = await readdirOfIndexAndFiles<
+                    SubcommandOptions<true>,
+                    SubcommandOptions
+                >(join(folderSubcommandsPath, subcommandGroup));
+
+                for (const subcommand of files) {
+                    index.data.addSubcommand(subcommand.data);
+                    client.subCommands.set(
+                        `${subcommandIndex.data.name}-${index.data.name}-${subcommand.data.name}`,
+                        subcommand,
+                    );
+                }
+
+                subcommandIndex.data.addSubcommandGroup(index.data);
+            }
+
+            await loadCommand(client, folderSubcommandsPath, 'index');
+            return;
+        }
+
+        const subcommandFiles = readdirSync(folderSubcommandsPath).filter(
+            (file) => !file.startsWith('index'),
+        );
 
         for (const file of subcommandFiles) {
             const subcommand = await importDefault<SubcommandOptions>(

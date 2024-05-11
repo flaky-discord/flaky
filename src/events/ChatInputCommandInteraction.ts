@@ -56,10 +56,15 @@ export default {
 
         try {
             if (command.subcommand) {
+                const subcommandGroupName =
+                    interaction.options.getSubcommandGroup();
                 const subcommandName = interaction.options.getSubcommand(true);
-                const subcommand = interaction.client.subCommands.get(
-                    `${command.name}-${subcommandName}`,
-                )!;
+                const subcommandKey = command.subcommandGroup
+                    ? `${command.name}-${subcommandGroupName}-${subcommandName}`
+                    : `${command.name}-${subcommandName}`;
+
+                const subcommand =
+                    interaction.client.subCommands.get(subcommandKey)!;
 
                 await subcommand.execute(interaction);
                 return;

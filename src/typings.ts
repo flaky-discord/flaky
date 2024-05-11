@@ -5,6 +5,7 @@ import {
     Collection,
     Events,
     SlashCommandSubcommandBuilder,
+    SlashCommandSubcommandGroupBuilder,
 } from 'discord.js';
 
 import { UserSlashCommandBuilder } from 'discord-user-installable';
@@ -152,14 +153,21 @@ export interface CommandOptions {
     name: string;
     cooldown?: number;
     subcommand?: boolean;
+    subcommandGroup?: boolean;
     data: UserSlashCommandBuilder;
     execute?(interaction: ChatInputCommandInteraction): Promise<void>;
     autocomplete?(interaction: AutocompleteInteraction): Promise<void>;
 }
 
-export interface SubcommandOptions {
+type SubcommandOrSubcommandGroup<T extends boolean> = T extends true
+    ? SlashCommandSubcommandGroupBuilder
+    : T extends false
+      ? SlashCommandSubcommandBuilder
+      : SlashCommandSubcommandBuilder;
+
+export interface SubcommandOptions<Group extends boolean = false> {
     name: string;
-    data: SlashCommandSubcommandBuilder;
+    data: SubcommandOrSubcommandGroup<Group>;
     execute(interaction: ChatInputCommandInteraction): Promise<void>;
     autocomplete?(interaction: AutocompleteInteraction): Promise<void>;
 }
