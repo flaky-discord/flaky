@@ -49,6 +49,9 @@ export function getFromConfig(botConfig: BotConfigOptions): string {
         case BotConfigOptions.WeatherAPIKey:
             return config.api.weatherApiKey;
 
+        case BotConfigOptions.LastFmAPiKey:
+            return config.api.lastfm.key;
+
         case BotConfigOptions.GitUrl:
             return config.git.url;
 

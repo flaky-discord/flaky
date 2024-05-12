@@ -14,6 +14,7 @@ import {
     logger,
     sendFromBotStatusChannel,
 } from '@flaky/utils';
+import { LastFmApi } from '@flaky/lastfm';
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -43,6 +44,7 @@ sendFromBotStatusChannel('Bot is starting');
 client.commands = new Collection<string, CommandOptions>();
 client.subCommands = new Collection<string, SubcommandOptions>();
 client.cooldowns = new Collection<string, Collection<string, number>>();
+client.fm = new LastFmApi(getFromConfig(BotConfigOptions.LastFmAPiKey));
 
 loadEvents(client);
 loadCommands(client);

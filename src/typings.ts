@@ -9,6 +9,7 @@ import {
 } from 'discord.js';
 
 import { UserSlashCommandBuilder } from 'discord-user-installable';
+import { LastFmApi } from '@flaky/lastfm';
 
 export type BreakingBadQuote = {
     quote: string;
@@ -119,6 +120,7 @@ export enum BotConfigOptions {
     Token = 'token',
     ClientId = 'clientId',
     WeatherAPIKey = 'weatherApiKey',
+    LastFmAPiKey = 'lastFmAPiKey',
     GitUrl = 'gitUrl',
     BotStatusChannelId = 'botStatusChannelId',
 }
@@ -133,10 +135,16 @@ export interface BotConfig {
 
 export interface ApiConfig {
     weatherApiKey: string;
+    lastfm: LastFmConfig;
 }
 
 export interface GitConfig {
     url: string;
+}
+
+export interface LastFmConfig {
+    key: string;
+    sharedSecret: string;
 }
 
 export interface Config {
@@ -183,5 +191,6 @@ declare module 'discord.js' {
         commands: Collection<string, CommandOptions>;
         subCommands: Collection<string, SubcommandOptions>;
         cooldowns: Collection<string, Collection<string, number>>;
+        fm: LastFmApi;
     }
 }

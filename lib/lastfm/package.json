@@ -1,0 +1,6 @@
+{
+  "name": "@flaky/lastfm",
+  "main": "src/index.ts",
+  "types": "typings/index.d.ts",
+  "private": true
+}
