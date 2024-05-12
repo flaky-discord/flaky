@@ -24,7 +24,6 @@ export default {
         ),
     async execute(interaction) {
         const artistName = interaction.options.getString('name', true);
-        const artistNameEncoded = encodeURI(artistName);
 
         try {
             const {
@@ -32,10 +31,7 @@ export default {
                 url,
                 stats: { listeners, playcount },
                 bio: { summary },
-            } = await interaction.client.fm.artist.getInfo(
-                artistNameEncoded,
-                true,
-            );
+            } = await interaction.client.fm.artist.getInfo(artistName, true);
 
             // remove html tags from last.fm summary
             const summaryTagRegex =
