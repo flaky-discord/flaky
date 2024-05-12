@@ -44,7 +44,7 @@ sendFromBotStatusChannel('Bot is starting');
 client.commands = new Collection<string, CommandOptions>();
 client.subCommands = new Collection<string, SubcommandOptions>();
 client.cooldowns = new Collection<string, Collection<string, number>>();
-client.fm = new LastFmApi(getFromConfig(BotConfigOptions.LastFmAPiKey));
+client.fm = new LastFmApi(getFromConfig(BotConfigOptions.LastFmApiKey));
 
 loadEvents(client);
 loadCommands(client);

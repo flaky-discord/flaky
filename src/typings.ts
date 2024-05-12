@@ -120,7 +120,7 @@ export enum BotConfigOptions {
     Token = 'token',
     ClientId = 'clientId',
     WeatherAPIKey = 'weatherApiKey',
-    LastFmAPiKey = 'lastFmAPiKey',
+    LastFmApiKey = 'lastFmApiKey',
     GitUrl = 'gitUrl',
     BotStatusChannelId = 'botStatusChannelId',
 }
